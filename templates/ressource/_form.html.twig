@@ -1,0 +1,34 @@
+<div  class="col-md-12 contact_form">
+    {{ form_start(form, { 'attr': {'class': 'comment_form'}}) }}
+       <div class="my-custom-class-for-errors">
+            {{ form_errors(form) }}
+        </div>
+    <div>
+        <div class="col-md-12">
+            <div class="form_title">
+                {{ form_label(form.Nom, 'Nom') }}
+            </div>
+            {{ form_widget(form.Nom, {'attr': {'class': 'comment_input'}}) }}
+        </div>
+        <div class="col-md-12">
+            <div class="form_title">
+                {{ form_label(form.Contenu, 'Contenu') }}
+            </div>
+            {{ form_widget(form.Contenu) }} 
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form_title">
+            {{ form_label(form.Document, 'Document') }}
+        </div>
+       
+        {{ form_widget(form.Document, {'attr': {'value': form.Document.parent.vars.value.document}}) }}
+    </div>
+    <button  class="comment_button trans_200 ajouter">{{ button_label|default('Ajouter') }}</button>
+</div>
+    
+    
+   
+
+    {{ form_end(form) }}
+    </div>

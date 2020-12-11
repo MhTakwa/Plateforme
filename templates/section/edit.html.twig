@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Section{% endblock %}
+{%block stylesheets%}
+<style>
+    .contact_form {
+        padding-bottom: 10%;
+    }
+    .ajouter{
+  
+        margin-left: 80%;
+    }
+</style>
+{%endblock%}
+{% block body %}
+   	<!-- Home -->
+
+       <div class="home">
+        <div class="breadcrumbs_container">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="breadcrumbs">
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="courses.html">Cours</a></li>
+                                <li><a href="{{path('cours_show',{'id':section.cours.id})}}">{{section.cours.libelle}}</a></li>
+                                <li>Modifier section</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>			
+    </div>
+
+            {{ include('section/_delete_form.html.twig') }}
+            {{ include('section/_form.html.twig', {'button_label': 'Modifier'}) }}
+ 
+     
+    
+    
+   </div>
+   <!--{{ include('section/_delete_form.html.twig') }}--> 
+{% endblock %}
+ 

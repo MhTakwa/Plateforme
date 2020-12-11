@@ -1,0 +1,58 @@
+<div  class="col-md-12 contact_form">
+    {{ form_start(form, { 'attr': {'class': 'comment_form'}}) }}
+       <div class="my-custom-class-for-errors">
+            {{ form_errors(form) }}
+        </div>
+    <div>
+        <div class="col-md-12">
+            <div class="form_title">
+                {{ form_label(form.Nom) }}
+            </div>
+            {{ form_widget(form.Nom, {'attr': {'class': 'comment_input'}}) }}
+        </div>
+        
+    </div>
+    <div class="col-md-12">
+        <div class="form_title">
+            {{ form_label(form.debutSoumission,'Date de début soumission') }}
+        </div>
+       
+        {{ form_widget(form.debutSoumission) }}
+    </div>
+    <div class="col-md-12">
+        <div class="form_title">
+            {{ form_label(form.finSoumission,'Date de fin soumission ') }}
+        </div>
+       
+        {{ form_widget(form.finSoumission) }}
+    </div>
+    <div class="col-md-12">
+        <div class="form_title">
+            {{ form_label(form.periodeGrace,'période de grace') }}
+        </div>
+       
+        {{ form_widget(form.periodeGrace) }}
+    </div>
+    <div class="col-md-12">
+        <div class="form_title">
+            {{ form_label(form.Contenu) }}
+        </div>
+       
+        {{ form_widget(form.Contenu) }}
+    </div>
+    <div class="col-md-12">
+        <div class="form_title">
+            {{ form_label(form.Document) }}
+        </div>
+       
+        {{ form_widget(form.Document) }}
+    </div>
+   
+    <button  class="comment_button trans_200 ajouter">{{ button_label|default('Ajouter') }}</button>
+</div>
+    
+    
+   
+
+    {{ form_end(form) }}
+    </div>

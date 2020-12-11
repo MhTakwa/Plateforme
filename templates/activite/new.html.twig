@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Activite{% endblock %}
+{%block stylesheets%}
+<style>
+    .contact_form {
+        padding-bottom: 10%;
+    }
+    .ajouter{
+  
+        margin-left: 80%;
+    }
+</style>
+{%endblock%} 
+{% block body %}
+   <!-- Home -->
+
+   <div class="home">
+    <div class="breadcrumbs_container">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="courses.html">Cours</a></li>
+                            <li><a href="{{path('cours_show',{'id':activite.section.cours.id})}}">{{activite.section.cours.libelle}}</a></li>
+                            <li>Ajouter activité</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>			
+</div> 
+
+
+    {{ include('activite/_form.html.twig') }}
+
+{% endblock %}
+{% block javascripts %}
+<script>
+    $(document).ready(function(){
+        tinymce.init({
+            selector: '.tinymce'
+          });
+        $('#activite_periodeGrace').addClass('comment_input');
+        $('#activite_debutSoumission').attr('type','date');
+        $('#activite_finSoumission').attr('type','date');
+        $('#activite_Contenu').removeAttr('required');
+       
+        });
+  
+     
+</script>
+{% endblock %}
