@@ -1,35 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Cours index{% endblock %}
+{% block title %}Cours{% endblock %}
 
 {% block body %}
-    <h1>Cours index</h1>
+    <div class="courses">
+		<div class="container">
+			<div class="row">
+                <div class="col-lg-8">
+			        <div class="courses_search_container">
+                        {% for cour in cours %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Libelle</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for cour in cours %}
-            <tr>
-                <td>{{ cour.id }}</td>
-                <td>{{ cour.libelle }}</td>
-                <td>
-                    <a href="{{ path('cours_show', {'id': cour.id}) }}">show</a>
-                    <a href="{{ path('cours_edit', {'id': cour.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                        <h3>{{ cour.libelle}}</h3>
+                 
+                        {# 
+                         <a href="{{ path('cours_show', {'id': cour.id}) }}">show</a>
+                            <a href="{{ path('cours_edit', {'id': cour.id}) }}">edit</a>
+                             #}  
+                        {% endfor %}
+                    </div>
 
-    <a href="{{ path('cours_new') }}">Create new</a>
+                </div>
+                <div class="col-lg-2">
+                     <a href="{{ path('cours_new') }}">Create new</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

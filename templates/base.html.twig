@@ -16,7 +16,7 @@
     </head>
 <body>
 
-    <div class="super_container">
+ <div class="super_container">
 
 	<!-- Header -->
 
@@ -192,14 +192,14 @@
 		<div class="home_slider_nav home_slider_next"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
 	</div>
 	<!-- contenu -->
+	
+	
+				{% block body %}
 
-	<div class="container">
-		{% block body %}
+				{% endblock %}
+	
 
-		{% endblock %}
-	</div>
 	<!-- Footer -->
-
 	<footer class="footer">
 		<div class="footer_background" style="background-image:url({{asset('images/footer_background.png')}})"></div>
 		<div class="container">

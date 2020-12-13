@@ -11,7 +11,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
        $cours=new Cours();
-       $cours->setLibelle('Conception');
+       $cours->setLibelle(' Atelier Conception et Développement');
        $manager->persist($cours);
         $manager->flush();
     }
