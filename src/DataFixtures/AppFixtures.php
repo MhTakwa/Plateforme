@@ -2,14 +2,15 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\Entity\Cours;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-       $cour=new Cours();
+       $cours=new Cours();
        $cours->setLibelle('Conception');
        $manager->persist($cours);
         $manager->flush();
