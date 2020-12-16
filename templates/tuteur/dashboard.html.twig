@@ -1,0 +1,122 @@
+{%extends 'base.html.twig'%}
+{%block stylesheets%}
+<link rel="stylesheet" type="text/css" href="{{asset('styles/about.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('styles/about_responsive.css')}}">
+<style>
+.accordion_container {
+height: 150px;
+}
+.avatar img {
+	margin-left: 100%;
+    width: -49%;
+    width: 100px;
+	margin-top: -18%;
+	cursor: pointer;
+}
+.blog_post_title a {
+	margin-top: -20%;
+	margin-left: 10%;
+    font-family: 'Roboto Slab', serif;
+    font-size: 20px;
+    line-height: 1.4;
+    font-weight: 700;
+    color: #384158;
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -ms-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+.blog_post_meta{
+	width: 100%;
+	margin-left: 10%;
+}
+.courses_button{
+	margin-top: 0%;
+}
+</style>
+{%endblock%}
+
+{%block body%}
+        	<!-- Home -->
+
+			<div class="home">
+				<div class="breadcrumbs_container">
+					<div class="container">
+						<div class="row">
+							<div class="col">
+								<div class="breadcrumbs">
+									<ul>
+										<li><a href="{{path('home')}}">Home</a></li>
+										<li><a href="{{path('dashboard')}}">Espace tuteur</a></li>
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>			
+			</div> 
+		
+	<div class="feature">
+		<div class="feature_background" style="background-image:url(images/courses_background.jpg)"></div>
+		<div class="container">
+			<div class="row">
+				
+				<div class="col">
+					<div class="section_title_container text-center">
+						<h2 class="section_title">MES COURS</h2>
+						
+						
+						<div class="section_subtitle"><p></p></div>
+					</div>
+					<div class="avatar"><a href="{{path('user_show',{'id':tuteur.id})}}"><img src="{{asset('images/user.png')}}"></a></div>
+				</div>
+
+			</div>
+			<div class="row feature_row">
+
+				<!-- Feature Content -->
+				<div class="col-lg-12 feature_col">
+					<div class="feature_content">
+						<!-- Accordions -->
+						<div class="courses_container">
+							<div class="row courses_row">
+								{%for course in courses%}
+								<!-- Course -->
+								<div class="col-lg-4 course_col">
+									<div class="course">
+									
+										<div class="course_body">
+											<h3 class="course_title"><a href="{{path('cours_show',{'id':course.id})}}">{{course.libelle|upper}}</a></h3>
+                                        </div>
+									</div>	
+                                </div>			
+												
+											
+										
+									</div>
+									<br>	<br>
+								</div>
+							
+								 {%endfor%}
+								
+				
+							</div>
+
+								
+							</div>
+
+						
+						<!-- Accordions End -->
+					</div>
+				</div>
+
+				<div class="courses_button trans_200"><a href="{{path('app_logout')}}">Logout</a></div>
+				
+			</div>
+		</div>
+	</div>
+
+
+{%endblock%}

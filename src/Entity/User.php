@@ -6,12 +6,17 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
+ * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity("email")
+ * @ORM\DiscriminatorMap({"user" = "User", "tuteur" = "Tuteur"})
  */
-class User implements UserInterface
+class User implements UserInterface,\Serializable
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -20,7 +25,7 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=180)
      */
     private $email;
 
@@ -112,7 +117,7 @@ class User implements UserInterface
      */
     public function getSalt()
     {
-        // not needed when using the "bcrypt" algorithm in security.yaml
+        return null;
     }
 
     /**
@@ -147,4 +152,24 @@ class User implements UserInterface
 
         return $this;
     }
+    public function serialize(){
+        return serialize([
+            $this->id,
+            $this->email,
+            $this->password,
+            $this->nom,
+            $this->prenom
+        ]);
+    }
+    public function unserialize($serilized){
+        list(
+            $this->id,
+            $this->email,
+            $this->password,
+            $this->nom,
+            $this->prenom
+        )=unserialize($serilized,['allowed_classes'=>false]);
+
+    }
+
 }

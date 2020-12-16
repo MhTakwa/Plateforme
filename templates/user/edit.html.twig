@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier profil{% endblock %}
+{%block stylesheets%}
+<style>
+    .contact_form {
+        padding-bottom: 10%;
+    }
+    .ajouter{
+  
+        margin-left: 80%;
+    }
+</style>
+{%endblock%} 
+
+{% block body %}
+        	<!-- Home -->
+
+         <div class="home">
+            <div class="breadcrumbs_container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="breadcrumbs">
+                                <ul>
+                                    <li><a href="{{path('home')}}">Home</a></li>
+                                    <li><a href="{{path('dashboard')}}">Espace tuteur</a></li>
+                                    <li>Modifier profil</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>			
+        </div> 
+    
+
+
+    {{ include('user/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+  
+
+{% endblock %}
+{% block javascripts %}
+<script>
+    $(document).ready(function(){
+        
+       
+       
+     
+</script>
+{% endblock %}

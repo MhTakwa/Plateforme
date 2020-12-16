@@ -31,11 +31,11 @@ class SectionController extends AbstractController
      */
     public function new(Request $request,Cours $cours): Response
     {       $section = new Section();
-            //$section->setCours($cours);
+            
             $form = $this->createForm(SectionType::class, $section);
             $form->handleRequest($request);
     
-            if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid() ) {
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($section);
                 if($cours)

@@ -6,7 +6,7 @@ use App\Repository\CoursRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=CoursRepository::class)
  */
@@ -20,14 +20,21 @@ class Cours
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,unique=true)
      */
     private $libelle;
 
     /**
      * @ORM\OneToMany(targetEntity=Section::class, mappedBy="cours")
+     * @Assert\Unique(message="The {{ value }} existe déja.")
      */
     private $sections;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Tuteur::class, inversedBy="cours",cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $tuteur;
 
     public function __construct()
     {
@@ -82,5 +89,17 @@ class Cours
     }
     public function __toString(){
         return $this->getLibelle();
+    }
+
+    public function getTuteur(): ?Tuteur
+    {
+        return $this->tuteur;
+    }
+
+    public function setTuteur(?Tuteur $tuteur): self
+    {
+        $this->tuteur = $tuteur;
+
+        return $this;
     }
 }

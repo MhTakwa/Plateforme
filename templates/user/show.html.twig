@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+{%block stylesheets%}
+<style>
+    .table{
+        margin-top: 3%;
+    }
+    .avatar img{
+        width: 100px;
+        margin: 10%;
+    }
+    .modif{
+        margin-bottom: 100px;
+    }
+</style>
+{%endblock%}
+{% block body %}
+    	<!-- Home -->
+
+        <div class="home">
+            <div class="breadcrumbs_container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="breadcrumbs">
+                                <ul>
+                                    <li><a href="{{path('home')}}">Home</a></li>
+                                    <li><a href="{{path('dashboard')}}">Espace tuteur</a></li>
+                                    <li>Profil</li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>			
+        </div> 
+    
+    <div class=row>
+        <div class="avatar col-md-2"><a href="{{path('user_show',{'id':user.id})}}"><img src="{{asset('images/user.png')}}"></a></div>
+        <div class="col-md-10">
+            <table class="table">
+                <tbody>
+        
+                
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ user.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prenom</th>
+                        <td>{{ user.prenom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        
+        </div>
+        <div class="courses_button trans_200 modif"><a href="{{path('user_edit',{'id':user.id})}}">Modifier mes informations</a></div>
+    </div>
+    
+   
+{% endblock %}

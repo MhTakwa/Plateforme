@@ -37,15 +37,19 @@
 									</li>
 									<li>
 										<i class="fa fa-envelope-o" aria-hidden="true"></i>
-										<div>info.deercreative@gmail.com</div>
+										<div>les_aigles@gmail.com</div>
 									</li>
 								</ul>
+								{%if app.user%}
 								<div class="top_bar_login ml-auto">
-									<div class="login_button"><a href="{{path('app_login')}}">Login</a></div>
+									<div class="login_button"><a href="{{path('dashboard')}}">{{app.user.nom ~" " ~ app.user.prenom}}</a></div>
 								</div>
+								{%else%}
 								<div class="top_bar_login ml-auto">
-									<div class="login_button"><a href="{{path('app_inscription')}}">Inscription</a></div>
+									<div class="login_button"><a href="{{path('app_login')}}">Inscription ou Login</a></div>
 								</div>
+								{%endif%}
+								
 							</div>
 						</div>
 					</div>

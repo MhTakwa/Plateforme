@@ -3,28 +3,28 @@
 {% block title %}Cours{% endblock %}
 
 {% block body %}
-    <div class="courses">
-		<div class="container">
-			<div class="row">
-                <div class="col-lg-8">
-			        <div class="courses_search_container">
-                        {% for cour in cours %}
+<div class="courses">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="courses_search_container">
+                    {% for cour in cours %}
 
-                        <h3>{{ cour.libelle}}</h3>
-                 
-                        {# 
-                         <a href="{{ path('cours_show', {'id': cour.id}) }}">show</a>
-                            <a href="{{ path('cours_edit', {'id': cour.id}) }}">edit</a>
-                             #}  
-                        {% endfor %}
-                    </div>
+                    <h3>{{ cour.libelle}}</h3>
+             
+                    {# 
+                     <a href="{{ path('cours_show', {'id': cour.id}) }}">show</a>
+                        <a href="{{ path('cours_edit', {'id': cour.id}) }}">edit</a>
+                         #}  
+                    {% endfor %}
+                </div>
 
-                </div>
-                <div class="col-lg-2">
-                     <a href="{{ path('cours_new') }}">Create new</a>
-                </div>
+            </div>
+            <div class="col-lg-2">
+                 <a href="{{ path('cours_new') }}">Create new</a>
             </div>
         </div>
     </div>
+</div>
 
 {% endblock %}
