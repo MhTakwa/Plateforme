@@ -2,16 +2,17 @@
 
 namespace App\Controller;
  
-use App\Entity\Activite;
 use App\Entity\Section;
+use App\Entity\Activite;
 use App\Form\ActiviteType;
 use App\Repository\ActiviteRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\SoumissionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/activite")
@@ -28,6 +29,14 @@ class ActiviteController extends AbstractController
         ]);
     }
 
+       /**
+     * @Route("/qcm/{id}", name="qcm", methods={"GET"})
+     */
+    public function qcm(Activite $activite,ActiviteRepository $activiteRepository)
+    {
+       // $activite->setDocument($this->getParameter('ressources_directory').'/'. $activite->getSection()->getId().'/'.$activite->getDocument());
+        return $this->render('activite/qcm.html.twig',["activite"=>$activite]);
+    }
     /**
      * @Route("/{section}/new", name="activite_new", methods={"GET","POST"})
      */
@@ -38,9 +47,9 @@ class ActiviteController extends AbstractController
         $form = $this->createForm(ActiviteType::class, $activite);
         $form->handleRequest($request);
         if ($form->isSubmitted() ) {
-            $activite->setDebutSoumission(new \DateTime($request->get('activite[debutSoumission]')));
             $activite->setFinSoumission(new \DateTime($request->get('activite[finSoumission]')));
             $activite->setDateCreation(new \DateTime('now')); 
+            $activite->setPhase(0);//// avant soumission
             $entityManager = $this->getDoctrine()->getManager();
             $document = $form->get('Document')->getData();
             if ($document) {
@@ -60,13 +69,26 @@ class ActiviteController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+      /**
+     * @Route("/activite/eval/{id}", name="activiteEval", methods={"GET"})
+     */
+    public function phaseEval(SoumissionRepository $soumissionRepository,ActiviteRepository $activiteRepository,Activite $activite): Response
+    {
+        $entityManager=$this->getDoctrine()->getManager();
+        $activite->setPhase(1);
+        $entityManager->flush();
+        $soumissions=$soumissionRepository->findAll();
+        return $this->render('soumission/index.html.twig', [
+            'soumissions' =>$soumissions,
+            'activite'=>$activite
+        ]);
+    }
 
     /**
      * @Route("/{id}", name="activite_show", methods={"GET"})
      */
     public function show(Activite $activite): Response
-    {
-        return $this->render('activite/show.html.twig', [
+    {  return $this->render('activite/show.html.twig', [
             'activite' => $activite,
         ]);
     }

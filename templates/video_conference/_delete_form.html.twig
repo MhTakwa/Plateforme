@@ -1,0 +1,6 @@
+<form method="post" action="{{ path('video_conference_delete', {'id': video.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ video.id) }}">
+    <input type="image" name="submit" src="{{asset('images/supprimer.png')}}" border="0" alt="Submit" style="width: 50px;" />
+
+</form>

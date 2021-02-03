@@ -1,0 +1,132 @@
+{% extends 'base_admin.html.twig' %}
+ 
+{% block title %}tuteurs{% endblock %}
+{%block stylesheets%}
+    <style>
+       
+        .submit{
+            margin-left: 90%;
+            margin-bottom: 10px;
+        }
+    </style>
+{%endblock%}
+{% block body %}
+<div class="header">
+    <h2>TUTEURS</h2>
+</div>
+<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <a href="{{path('tuteur_index',{'filter':'1'})}}">
+    <div class="info-box bg-green hover-expand-effect">
+        <div class="icon">
+            <i class="material-icons">help</i>
+        </div>
+        <div class="content">
+            <div class="text">TOUS</div>
+            <div class="number count-to" data-from="0" data-to="{{count_all|length}}" data-speed="1000" data-fresh-interval="1"></div>
+        </div>
+    </div>
+    </a>
+</div>
+  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <a href="{{path('tuteur_index',{'filter':'1'})}}">
+    <div class="info-box bg-blue hover-expand-effect">
+        <div class="icon">
+            <i class="material-icons">help</i>
+        </div>
+        <div class="content">
+            <div class="text">APPROUVE</div>
+            <div class="number count-to" data-from="0" data-to="{{count_approve|length}}" data-speed="1000" data-fresh-interval="1"></div>
+        </div>
+    </div>
+    </a>
+</div>
+<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <a href="{{path('tuteur_index',{'filter':'2'})}}">
+    <div class="info-box bg-orange hover-expand-effect">
+        <div class="icon">
+            <i class="material-icons">forum</i>
+        </div>
+        <div class="content">
+            <div class="text">EN ATTENTE</div>
+            <div class="number count-to" data-from="0" data-to="{{count_attente|length}}" data-speed="1000" data-fresh-interval="1"></div>
+        </div>
+    </div>
+    </a>
+</div>
+<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <a href="{{path('tuteur_index',{'filter':'0'})}}">
+    <div class="info-box bg-red hover-expand-effect">
+        <div class="icon">
+            <i class="material-icons">forum</i>
+        </div>
+        <div class="content">
+            <div class="text">REFUSE</div>
+            <div class="number count-to" data-from="0" data-to="{{count_refuse|length}}" data-speed="1000" data-fresh-interval="1"></div>
+        </div>
+    </div>
+    </a>
+</div>
+
+
+<div class="body">
+    <a href="" class=" btn btn-primary m-t-15 waves-effect"></a>
+</br>
+    
+    <div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Specialite</th>
+                <th>Email</th>
+                <th>Télephone</th>
+                <th>Nombre des cours</th>
+          
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tuteur in tuteurs %}
+            <tr  class="clickable_row" data-href="{{ path('tuteur_edit',{'id':tuteur.id}) }}">
+                
+                <td><a href="">{{ tuteur.nom }} {{tuteur.prenom}}</a></td>
+                <td>{{tuteur.specialite}}</td>
+                <td>{{tuteur.email}}</td>
+                <td>{{tuteur.tel}}</td>
+                <td>{{tuteur.cours|length}} cours</td>
+                
+                <td>
+                    <a href='{{ path("tuteur_valider", {"id": tuteur.id}) }}'>Valider</a>
+                 </td>
+                
+                 <td>
+                    <a href='{{ path("tuteur_refuser", {"id": tuteur.id}) }}'>refuser</a>
+                 </td>
+                
+                 <td>
+                    <a href='{{ path("tuteur_delete", {"id": tuteur.id}) }}'>supprimer</a>
+                 </td>
+                
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+
+   
+{% endblock %}
+{%block scripts%}
+<script>
+ $('.clickable_row').on('click',function(){
+    window.location = $(this).data("href");
+ });  
+
+</script>
+{%endblock%} 

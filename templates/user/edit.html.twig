@@ -10,6 +10,21 @@
   
         margin-left: 80%;
     }
+    .avatar img{
+        width: 60px;
+        margin: 10%;
+    }
+    .user_image {
+        border-radius: 50%;
+        background-color: grey;
+        width: 100px;
+        height: 100px;
+    }
+    
+    input#teacher_image {
+        visibility: hidden;
+    }
+       
 </style>
 {%endblock%} 
 
@@ -24,7 +39,7 @@
                             <div class="breadcrumbs">
                                 <ul>
                                     <li><a href="{{path('home')}}">Home</a></li>
-                                    <li><a href="{{path('dashboard')}}">Espace tuteur</a></li>
+                                    <li><a href="{{path('dashboard_apprenant')}}">Espace personnel</a></li>
                                     <li>Modifier profil</li>
                                 </ul>
                             </div>
@@ -43,7 +58,28 @@
 {% endblock %}
 {% block javascripts %}
 <script>
+
     $(document).ready(function(){
+        $('#user_image').hide();
+        $('#user_image').removeAttr('required');
+       
+
+        $('.user_image').on('click',function(){
+          
+        $('#user_image').click();
+        });
+        $('#user_image').on('change',function(){
+            var reader = new FileReader();
+        
+            reader.onload = function (e) { 
+                
+                $('.user_image').attr('src', e.target.result);
+                $('.user_image').css('background-color','transparent');
+                $('.user_image').css('width','fit-content');
+            }
+            reader.readAsDataURL($('#user_image').prop('files')[0]);
+        });
+    });
         
        
        

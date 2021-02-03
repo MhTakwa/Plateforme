@@ -1,30 +1,90 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
-{% block title %}Cours{% endblock %}
-
+{% block title %}Cours index{% endblock %}
+{%block stylesheets%} 
+    <style>
+       
+        .submit{
+            margin-left: 85%;
+            margin-bottom: 10px;
+        }
+        .state {
+        width: 25px;
+        height: 25px;
+        border-radius: 50px;
+    }
+    .canceled{
+        color: red;
+    }
+    .on_going{
+        color:green
+    }
+    .waiting{
+        color:orange
+    }
+    .completed{
+        color:blue
+    }
+ 
+    </style>
+    
+{%endblock%}
 {% block body %}
-<div class="courses">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="courses_search_container">
-                    {% for cour in cours %}
-
-                    <h3>{{ cour.libelle}}</h3>
-             
-                    {# 
-                     <a href="{{ path('cours_show', {'id': cour.id}) }}">show</a>
-                        <a href="{{ path('cours_edit', {'id': cour.id}) }}">edit</a>
-                         #}  
-                    {% endfor %}
-                </div>
-
-            </div>
-            <div class="col-lg-2">
-                 <a href="{{ path('cours_new') }}">Create new</a>
-            </div>
-        </div>
-    </div>
+   <!-- Basic Examples -->
+   <div class="header">
+    <h2>COURSES</h2>
 </div>
-
+   <!-- Widgets -->
+   <div class="row clearfix">
+   
+ 
+                        <div class="body">
+                            {%if is_granted('ROLE_ADMIN')%}
+                            <a href="{{path('cours_new')}}" class="submit btn btn-primary m-t-15 waves-effect">ADD COURSE</a>
+                            {%endif%}
+                        </br>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Label</th>
+                                            <th>Tuteur</th>
+                                               
+                                        </tr>
+                                    </thead>
+                                   
+                                    <tbody>
+                                        {% for course in cours %}
+                                            <tr   data-href="{{path('cours_edit',{'id':course.id})}}" class="clickable_row">
+                                                
+                                                <td>{{ course.libelle }}</td>
+                                               <td>{{course.tuteur.Nom ~ " " ~  course.tuteur.Prenom}}</td>
+                                              
+                                            
+                                                                                          
+                                                 
+                                           
+                                               
+                                                                                              
+                                          
+                                            </tr>
+                                           {%endfor%}
+                                        </tbody>
+                                </table>
+                            </div>
+                        </div>
+                  
+ 
 {% endblock %}
+{%block scripts%}
+<script>
+ $('.clickable_row').on('click',function(){
+    window.location = $(this).data("href");
+ }); 
+ $('.no_clickable_row').on('click',function(e){
+    e.preventDefault();
+ });  
+
+</script>
+{%endblock%} 

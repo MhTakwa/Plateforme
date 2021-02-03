@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\User;
+use App\Entity\Apprenant;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,6 +16,7 @@ class InscriptionType extends AbstractType
         $builder
             ->add('email')
             ->add('password',PasswordType::class)
+            ->add('groupe')
             ->add('nom')
             ->add('prenom')
         ;
@@ -24,7 +25,7 @@ class InscriptionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => Apprenant::class,
         ]);
     }
 }

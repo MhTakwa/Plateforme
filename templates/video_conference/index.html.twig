@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VideoConference index{% endblock %}
+
+{% block body %}
+    <h1>VideoConference index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Lien</th>
+                <th>IdReunion</th>
+                <th>Code</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for video_conference in video_conferences %}
+            <tr>
+                <td>{{ video_conference.id }}</td>
+                <td>{{ video_conference.Nom }}</td>
+                <td>{{ video_conference.Lien }}</td>
+                <td>{{ video_conference.IdReunion }}</td>
+                <td>{{ video_conference.code }}</td>
+                <td>{{ video_conference.date ? video_conference.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('video_conference_show', {'id': video_conference.id}) }}">show</a>
+                    <a href="{{ path('video_conference_edit', {'id': video_conference.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('video_conference_new') }}">Create new</a>
+{% endblock %}

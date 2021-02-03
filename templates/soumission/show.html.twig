@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Soumission{% endblock %}
+{%block stylesheets%}
+<style>
+ table{
+ 
+     margin-top: 5%;
+     width: 900px !important;
+   
+
+ }
+ #edit{
+     margin-bottom: 10%;
+ }
+ .dropdown_item_title{
+     margin-bottom: 10%;
+ }
+
+</style>
+{%endblock%}
+{% block body %}
+         	<!-- Home -->
+
+             <div class="home">
+                <div class="breadcrumbs_container">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="breadcrumbs">
+                                    <ul>
+                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="courses.html">Cours</a></li>
+                                        <li><a href="{{path('cours_show',{'id':soumission.activite.section.cours.id})}}">{{soumission.activite.section.cours.libelle}}</a></li>
+                                        <li> <a href="{{path('activite_show', {'id': soumission.activite.id})}}">{{soumission.activite.Nom}}</a> </li>
+                                        <li>Espace soumission</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>			
+            </div> 
+            <div class="container">
+                <div class="row">
+                  <div class="col-xs-12 ">
+                    <div class="table-responsive" data-pattern="priority-columns">
+                      <table class="table table-bordered table-hover">
+                       
+                     
+                        <tbody>
+                           
+                            <tr>
+                                <th colspan="3">Titre</th>
+                                <td colspan="3">{{ soumission.titre }}</td>
+                            </tr>
+                            <tr>
+                                <th colspan="3">DateCreation</th>
+                                <td colspan="3">{{ soumission.modification|date('Y-m-d H:i:s')  }}</td>
+                            </tr>
+                           
+                          
+                        </tbody>
+                        
+                      </table>
+                    </div><!--end of .table-responsive-->
+                    <div class="activite">
+                 
+                      <h3>Réponse:</h3>
+                        {{soumission.contenu|raw}}
+                        <div  class="dropdown_item_title">
+                        <a href="{{asset("uploads/soumissions/"~ soumission.activite.id ~ "/" ~ soumission.document)}}">{{soumission.titre}}</a>
+                        </div>
+
+                    </div>
+                  </div>
+                
+                 
+                </div>
+              </div>
+    {%if is_granted("ROLE_APPRENANT") and soumission.apprenant.id==app.user.id%} 
+    <div class="courses_button trans_200 col-md-6 " id="edit">
+        <a href="{{ path('soumission_edit', {'id': soumission.id}) }}">Modifier</a>
+        </div>
+    {%endif%}
+ </body>
+ 
+
+{% endblock %}
+   

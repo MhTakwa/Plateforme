@@ -56,7 +56,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             Security::LAST_USERNAME,
             $credentials['email']
         );
-
+       
         return $credentials;
     }
 
@@ -95,8 +95,22 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
-
-        return new RedirectResponse($this->urlGenerator->generate('dashboard'));
+        $user= $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $request->get('email')]);
+        if(in_array('ROLE_ADMIN',$user->getRoles())){
+            return new RedirectResponse($this->urlGenerator->generate('admin'));
+        }
+        else{
+        if($user->getStatus()!=1)
+            return new RedirectResponse($this->urlGenerator->generate('inscription_approve'));
+ 
+         else if(in_array('ROLE_TUTEUR',$user->getRoles())){
+            return new RedirectResponse($this->urlGenerator->generate('dashboard'));
+         }
+            else 
+               return new RedirectResponse($this->urlGenerator->generate('dashboard_apprenant'));
+        }
+       
+        
         
     }
 

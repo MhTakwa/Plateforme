@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 use App\Entity\User;
+use App\Entity\Apprenant;
 use App\Form\InscriptionType;
+use App\Form\InscriptionTuteurType;
 use App\Entity\Tuteur;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,12 +45,15 @@ class SecurityController extends AbstractController
      */
     public function Inscription(Request $request, EntityManagerInterface $entityManager,UserPasswordEncoderInterface $encoder)
     {
-        $user = new Tuteur();
+        $user = new Apprenant();
+
         $form = $this->createForm(InscriptionType::class, $user);
-        $form->handleRequest($request);// dd($form);
-        if($form->isSubmitted() && $form->isValid()){
+        $form->handleRequest($request);///dd($user);
+        if($form->isSubmitted() && $form->isValid()){// dd($user);
             $user->setPassword($encoder->EncodePassword($user,$user->getPassword()));
-            $user->setRoles(['ROLE_TUTEUR']);
+            $user->setRoles(['ROLE_APPRENANT']);
+            $user->setStatus(2);
+            $user->getGroupe()->setStatus(2);
             $entityManager->persist($user);
             $entityManager->flush();
             
@@ -57,5 +62,33 @@ class SecurityController extends AbstractController
         return $this->render('security/inscription.html.twig', [
             'form' => $form->createView()
         ]);
+     }
+      /**
+     * @Route("/inscription_tuteur", name="app_inscription_tuteur")
+     */
+    public function Inscription_tuteur(Request $request, EntityManagerInterface $entityManager,UserPasswordEncoderInterface $encoder)
+    {
+        $tuteur = new Tuteur();
+        $form = $this->createForm(InscriptionTuteurType::class, $tuteur);
+        $form->handleRequest($request);//dd($tuteur);
+        if($form->isSubmitted() && $form->isValid()){ //dd($request);
+            $tuteur->setPassword($encoder->EncodePassword($tuteur,$tuteur->getPassword()));
+            $tuteur->setRoles(['ROLE_TUTEUR']);
+            $tuteur->setStatus(2);
+            $entityManager->persist($tuteur);
+            $entityManager->flush();
+            
+            return $this->redirectToRoute('app_login');
+        }
+        return $this->render('security/inscription_tuteur.html.twig', [
+            'form' => $form->createView()
+        ]);
+     }
+       /**
+     * @Route("/inscription_approve", name="inscription_approve")
+     */
+    public function inscription_approve(Request $request, EntityManagerInterface $entityManager,UserPasswordEncoderInterface $encoder)
+    {
+       return $this->render('security/inscription_approve.html.twig');
      }
 }

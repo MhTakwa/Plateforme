@@ -1,4 +1,38 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div  class="col-md-12 ">
+    {{ form_start(form, { 'attr': {'class': 'comment_form'}}) }}
+     
+         
+
+    <div>
+        <div class="row clearfix">
+           {{ form_errors(form) }}
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <div class="form-line">
+                        {{ form_widget(form.libelle, {'attr': {'class': 'form-control','placeholder':'Libelle'}}) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+            {{ form_widget(form.tuteur, {'attr': {'class': 'form-control'}}) }}
+          
+            </div>
+        </div>
+        <div class="row clearfix">
+        <div class="col-sm-12">
+            {{ form_widget(form.groupe, {'attr': {'class': 'form-control'}}) }}
+          
+        </div>
+        </div>
+            
+        <button type="submit" class=" submit btn btn-primary waves-effect">{{ button_label|default('Ajouter') }}</button>
+   
+</div>
+
+
+      
+
+   
+
+    {{ form_end(form) }}
+    </div>

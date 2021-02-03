@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un Groupe{% endblock %}
+{%block stylesheets%}
+<style>
+    .ajouter{
+        width: 100px;
+        height: 40px;
+        margin-bottom: 20px;
+        margin-left: 80%;
+        margin-top: 20px;
+    }
+
+
+</style>
+{%endblock%}
+{% block body %}
+  	<!-- Home -->
+
+      <div class="home">
+        <div class="breadcrumbs_container">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="breadcrumbs">
+                            <ul>
+                                <li><a href="{{path('home')}}">Home</a></li>
+                                <li><a href="{{path('dashboard')}}">Espace tuteur</a></li>
+                                <li>Initialiser le cours {{cours.libelle}} </li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>			
+    </div> 
+
+    {{ include('cours/_form_init.html.twig') }}
+
+{% endblock %}
+{%block scripts%}
+<script>
+    $(document).ready(function(){
+        $('.btn-group .bootstrap-select').hide();
+
+    });
+  
+</script>
+{%endblock%}

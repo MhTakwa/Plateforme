@@ -5,13 +5,14 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 /**
- * @Route("/utilisateurs")
+ * @Route("/utilisateurs") 
  */
 class UserController extends AbstractController
 {
@@ -61,12 +62,20 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, User $user,UserPasswordEncoderInterface $encoder): Response
+    public function edit(Request $request, User $user,UserPasswordEncoderInterface $encoder,SluggerInterface $slugger): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get('image')->getData();
+           
+            if ($image) {
+               $filename=$this->uploadImage($image,$slugger);
+               if($filename) 
+                   $user->setImage($filename);
+              
+           }
             if($request->get('password')!=null)
                  $user->setPassword($encoder->EncodePassword($user,$request->get('password')));
             $this->getDoctrine()->getManager()->flush();
@@ -92,5 +101,24 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('user_index');
+    }
+    private function uploadImage($image, SluggerInterface $slugger){ 
+        $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+        // this is needed to safely include the file name as part of the URL
+        $safeFilename = $slugger->slug($originalFilename);
+        $newFilename = $safeFilename.'-'.uniqid().'.'.$image->guessExtension();
+       // die(var_dump($newFilename));
+        // Move the file to the directory where brochures are stored
+        try {
+            $image->move(
+                $this->getParameter('profile_images_directory'),
+                $newFilename
+            );
+        } catch (FileException $e) {
+            // ... handle exception if something happens during file upload
+        }
+         return $newFilename;
+      
+
     }
 }

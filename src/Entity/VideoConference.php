@@ -23,17 +23,17 @@ class VideoConference
     private $Nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=true)
      */
     private $Lien;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer",nullable=true)
      */
     private $IdReunion;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=true)
      */
     private $code;
 
@@ -41,6 +41,11 @@ class VideoConference
      * @ORM\Column(type="datetime")
      */
     private $date;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Cours::class, inversedBy="videoConferences")
+     */
+    private $Cours;
 
     public function getId(): ?int
     {
@@ -103,6 +108,18 @@ class VideoConference
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getCours(): ?Cours
+    {
+        return $this->Cours;
+    }
+
+    public function setCours(?Cours $Cours): self
+    {
+        $this->Cours = $Cours;
 
         return $this;
     }

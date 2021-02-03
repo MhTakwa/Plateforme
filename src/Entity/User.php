@@ -3,16 +3,18 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\InheritanceType("SINGLE_TABLE")
+ *@ORM\InheritanceType("JOINED")
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity("email")
- * @ORM\DiscriminatorMap({"user" = "User", "tuteur" = "Tuteur"})
+ * @ORM\DiscriminatorMap({"user" = "User", "tuteur" = "Tuteur","apprenant"="Apprenant"})
  */
 class User implements UserInterface,\Serializable
 {
@@ -50,6 +52,32 @@ class User implements UserInterface,\Serializable
      * @ORM\Column(type="string", length=255)
      */
     private $prenom;
+
+    /**
+     * @ORM\Column(type="string", length=255,nullable=true)
+     */
+    private $image;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $status;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="sender")
+     */
+    private $sendedMessages;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Message::class, mappedBy="Receivers")
+     */
+    private $MessagesReceived;
+
+    public function __construct()
+    {
+        $this->sendedMessages = new ArrayCollection();
+        $this->MessagesReceived = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -170,6 +198,87 @@ class User implements UserInterface,\Serializable
             $this->prenom
         )=unserialize($serilized,['allowed_classes'=>false]);
 
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getSendedMessages(): Collection
+    {
+        return $this->sendedMessages;
+    }
+
+    public function addSendedMessage(Message $sendedMessage): self
+    {
+        if (!$this->sendedMessages->contains($sendedMessage)) {
+            $this->sendedMessages[] = $sendedMessage;
+            $sendedMessage->setSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSendedMessage(Message $sendedMessage): self
+    {
+        if ($this->sendedMessages->removeElement($sendedMessage)) {
+            // set the owning side to null (unless already changed)
+            if ($sendedMessage->getSender() === $this) {
+                $sendedMessage->setSender(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessagesReceived(): Collection
+    {
+        return $this->MessagesReceived;
+    }
+
+    public function addMessagesReceived(Message $messagesReceived): self
+    {
+        if (!$this->MessagesReceived->contains($messagesReceived)) {
+            $this->MessagesReceived[] = $messagesReceived;
+            $messagesReceived->addReceiver($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessagesReceived(Message $messagesReceived): self
+    {
+        if ($this->MessagesReceived->removeElement($messagesReceived)) {
+            $messagesReceived->removeReceiver($this);
+        }
+
+        return $this;
     }
 
 }

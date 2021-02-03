@@ -4,21 +4,22 @@
             {{ form_errors(form) }}
         </div>
     <div>
-        <div class="col-md-12">
+        <div class="col-md-12"> 
             <div class="form_title">
                 {{ form_label(form.Nom) }}
             </div>
             {{ form_widget(form.Nom, {'attr': {'class': 'comment_input'}}) }}
         </div>
         
-    </div>
-    <div class="col-md-12">
+    </div> 
+    <div class="col-md-12"> 
         <div class="form_title">
-            {{ form_label(form.debutSoumission,'Date de début soumission') }}
+            {{ form_label(form.type,'Type') }}
         </div>
        
-        {{ form_widget(form.debutSoumission) }}
+        {{ form_widget(form.type,{'attr': {'class': 'select-css'}}) }}
     </div>
+   
     <div class="col-md-12">
         <div class="form_title">
             {{ form_label(form.finSoumission,'Date de fin soumission ') }}

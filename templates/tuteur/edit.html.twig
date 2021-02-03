@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier profil{% endblock %}
+{%block stylesheets%}
+<style>
+    .contact_form {
+        padding-bottom: 10%;
+    }
+    .ajouter{
+  
+        margin-left: 80%;
+    }
+    .user_image {
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        cursor: pointer;
+    }
+    .tuteur_input{
+        display: none;
+    }
+</style>
+{%endblock%} 
+
+{% block body %}
+        	<!-- Home -->
+
+         <div class="home">
+            <div class="breadcrumbs_container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="breadcrumbs">
+                                <ul>
+                                    <li><a href="{{path('home')}}">Home</a></li>
+                                    <li><a href="{{path('dashboard')}}">Espace tuteur</a></li>
+                                    <li>Modifier profil</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>			
+        </div> 
+    
+
+
+    {{ include('tuteur/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+  
+
+{% endblock %}
+{% block javascripts %}
+<script>
+
+    $(document).ready(function(){
+         $('#tuteur_image').removeAttr("required");
+        $('.user_image').on('click',function(){
+          
+        $('#tuteur_image').click();
+        });
+        $('#tuteur_image').on('change',function(){
+            var reader = new FileReader();
+        
+            reader.onload = function (e) { 
+                
+                $('.user_image').attr('src', e.target.result);
+                $('.user_image').css('background-color','transparent');
+                $('.user_image').css('width','fit-content');
+            }
+            reader.readAsDataURL($('#tuteur_image').prop('files')[0]);
+        });
+    });
+        
+       
+       
+     
+</script>
+{% endblock %}

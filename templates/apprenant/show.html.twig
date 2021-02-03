@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+{%block stylesheets%}
+<style>
+    .table{
+        margin-top: 3%;
+    }
+    .avatar img{
+        width: 100px;
+        margin: 10%;
+    }
+    .modif{
+        margin-bottom: 100px;
+    }
+</style>
+{%endblock%}
+{% block body %}
+    	<!-- Home -->
+
+        <div class="home">
+            <div class="breadcrumbs_container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="breadcrumbs">
+                                <ul>
+                                    <li><a href="{{path('home')}}">Home</a></li>
+                                    <li><a href="{{path('dashboard_apprenant')}}">Espace apprenant</a></li>
+                                    <li>Profil</li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>			
+        </div> 
+    
+    <div class=row>
+        <div class="avatar col-md-2"><img {%if(apprenant.image !=null)%} src="{{asset('uploads/profile/'~ apprenant.image)}}" {%else%} src="{{asset('images/user.png')}}" {%endif%}></div>
+        <div class="col-md-10">
+            <table class="table">
+                <tbody>
+        
+                
+                    <tr>
+                        <th>Nom & prénom</th>
+                        <td>{{ apprenant.nom ~" " ~ apprenant.prenom }}</td>
+                    </tr>
+                    
+                  
+                     <tr>
+                        <th>Email</th>
+                        <td>{{ apprenant.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Groupe</th>
+                        <td>{{ apprenant.groupe.nom }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        
+        </div>
+        <div class="courses_button trans_200 modif"><a href="{{path('user_edit',{'id':apprenant.id})}}">Modifier mes informations</a></div>
+        <div class="courses_button trans_200 modif"><a href="{{path('message_index')}}">Consulter mes messages</a></div>
+    </div>
+    
+   
+{% endblock %}

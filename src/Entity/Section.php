@@ -34,11 +34,13 @@ class Section
      */
     private $ressources;
 
+
    
     public function __construct()
     {
         $this->ressources = new ArrayCollection();
         $this->activites = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -100,9 +102,8 @@ class Section
         return $this;
     }
 
-    
 
- 
+
     
 }
   

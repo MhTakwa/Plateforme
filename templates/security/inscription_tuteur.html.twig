@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+{%block stylesheets %}
+<style>
+    .counter_background {
+        height: 170%;
+    }
+    .counter_form {
+       height: 170%;
+    }
+</style>
+{%endblock%}
+{% block body %}
+
+	<!-- Home -->
+
+	<div class="home">
+		<div class="breadcrumbs_container">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="breadcrumbs">
+							<ul>
+								<li><a href="index.html">Home</a></li>
+								<li>Inscription</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>			
+	</div><br>
+	<!-- Counter -->
+
+	<div class="counter">
+		<div class="counter_background" style="background-image:url(images/counter_background.jpg)"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="counter_content">
+						<h2 class="counter_title">Register Now</h2>
+						<div class="counter_text"><p>Inscription rapide et gratuite</p></div>
+
+						<!-- Milestones -->
+
+						<div class="milestones d-flex flex-md-row flex-column align-items-center justify-content-between">
+							
+							<!-- Milestone -->
+							<div class="milestone">
+								<div class="milestone_counter" data-end-value="15">0</div>
+								<div class="milestone_text">years</div>
+							</div>
+
+							<!-- Milestone -->
+							<div class="milestone">
+								<div class="milestone_counter" data-end-value="120" data-sign-after="k">0</div>
+								<div class="milestone_text">years</div>
+							</div>
+
+							<!-- Milestone -->
+							<div class="milestone">
+								<div class="milestone_counter" data-end-value="670" data-sign-after="+">0</div>
+								<div class="milestone_text">years</div>
+							</div>
+
+							<!-- Milestone -->
+							<div class="milestone">
+								<div class="milestone_counter" data-end-value="320">0</div>
+								<div class="milestone_text">years</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+            {{ form_start(form)}}
+                <div class="counter_form">
+                    <div class="row fill_height">
+                        <div class="col fill_height">
+                                <br>
+								<div class="counter_form_title">Inscription
+
+								</div>
+
+                                <div class="my-custom-class-for-errors">
+                                    {{ form_errors(form) }}
+                                </div>
+                                {{ form_row(form.nom, {'attr':{'class':'counter_input'}})}}
+								{{ form_row(form.prenom, {'attr':{'class':'counter_input'}})}}
+								{{ form_row(form.grade, {'attr':{'class':'counter_input'}})}}
+								{{ form_row(form.specialite, {'attr':{'class':'counter_input'}})}}
+								{{ form_row(form.tel, {'attr':{'class':'counter_input'}})}}
+                                {{ form_row(form.email, {'attr':{'class':'counter_input'}})}}
+                                {{ form_row(form.password, {'attr':{'class':'counter_input'}})}}
+                              
+                                <button type="submit" class="counter_form_button">submit now</button>
+                                {{ form_end(form)}}
+                            </div>
+                    </div>
+                </div>
+            
+            
+		</div>
+    </div>
+    <br><br><br><br><br>
+
+
+
+
+{% endblock %}

@@ -6,7 +6,7 @@ use App\Repository\RessourceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- *@ORM\InheritanceType("SINGLE_TABLE")
+ *@ORM\InheritanceType("JOINED")
  * @ORM\Entity(repositoryClass=RessourceRepository::class)
  */
 class Ressource

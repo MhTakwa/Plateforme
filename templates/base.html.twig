@@ -15,6 +15,7 @@
 			<link rel="stylesheet" type="text/css" href="{{ asset('styles/course_responsive.css')}}">
 			<link rel="stylesheet" type="text/css" href="{{ asset('styles/contact.css')}}">
 			<link rel="stylesheet" type="text/css" href="{{ asset('styles/contact_responsive.css')}}">
+			<link rel="stylesheet" type="text/css" href="{{ asset('styles/style.css')}}">
 		{% block stylesheets %}
         {% endblock %}
     </head>
@@ -46,7 +47,7 @@
 								</ul>
 								{%if app.user%}
 								<div class="top_bar_login ml-auto">
-									<div class="login_button"><a href="{{path('dashboard')}}">{{app.user.nom ~" " ~ app.user.prenom}}</a></div>
+									<div class="login_button"><a {%if is_granted ('ROLE_TUTEUR')%} href="{{path('dashboard')}}" {%else%} href="{{path('dashboard_apprenant')}}" {%endif%}>{{app.user.nom ~" " ~ app.user.prenom}}</a></div>
 								</div>
 								{%else%}
 								<div class="top_bar_login ml-auto">
@@ -73,21 +74,17 @@
 							</div>
 							<nav class="main_nav_contaner ml-auto">
 								<ul class="main_nav">
-									<li class="active"><a href="#">Home</a></li>
-									<li><a href="about.html">About</a></li>
-									<li><a href="courses.html">Courses</a></li>
-									<li><a href="blog.html">Blog</a></li>
-									<li><a href="#">Page</a></li>
-									<li><a href="contact.html">Contact</a></li>
+									<li class="active"><a href="{{path('home')}}">Home</a></li>
+									
+									<li><a href="{{path('cours')}}">Cours</a></li>
+									<li></li><li></li><li></li><li></li>
+									
 								</ul>
 								<div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>
 
 								<!-- Hamburger -->
 
-								<div class="shopping_cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></div>
-								<div class="hamburger menu_mm">
-									<i class="fa fa-bars menu_mm" aria-hidden="true"></i>
-								</div>
+								
 							</nav>
 
 						</div>
@@ -205,7 +202,7 @@
 											<li><a href="about.html">About</a></li>
 											<li><a href="contact.html">Contact</a></li>
 											<li><a href="#">Features</a></li>
-											<li><a href="courses.html">Courses</a></li>
+											<li><a href="{{path('cours')}}">Cours</a></li>
 											<li><a href="#">Events</a></li>
 											<li><a href="#">Gallery</a></li>
 											<li><a href="#">FAQs</a></li>
@@ -268,6 +265,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			<script src="{{ asset('js/custom.js')}}"></script>
 			<script src="{{asset('js/course.js')}}"></script>
 			<script src="{{ asset('js/contact.js')}}"></script>
+			<script src="{{ asset('js/index.js')}}"></script>
 			
 		
 		{% block javascripts %}

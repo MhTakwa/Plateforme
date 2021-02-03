@@ -5,6 +5,9 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     ressources_directory: '%kernel.project_dir%/public/uploads/ressources'
+    profile_images_directory: '%kernel.project_dir%/public/uploads/profile'
+    qcm_directory : '%kernel.project_dir%/public/uploads/qcm'
+    soumissions_directory : '%kernel.project_dir%/public/uploads/soumissions'
 services:
     # default configuration for services in *this* file
     _defaults:

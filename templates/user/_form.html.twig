@@ -4,12 +4,20 @@
             {{ form_errors(form) }}
         </div>
     <div>
-        <div class="col-md-12">
-            <div class="form_title">
-                {{ form_label(form.nom, 'Nom') }}
+        <div class="row">
+            <div class="col-md-2">
+                <image class="user_image " {%if(user.image is defined)%} src="{{asset('uploads/profile/'~ user.image)}}" {%else%} src="{{asset('images/user.png')}}" {%endif%}></image>
+                {{ form_widget(form.image, {'attr': {'class': 'user_input','required':'false'}}) }}
             </div>
-            {{ form_widget(form.nom, {'attr': {'class': 'comment_input'}}) }}
-        </div>
+    
+       
+            <div class="col-md-10">
+                <div class="form_title">
+                    {{ form_label(form.nom, 'Nom') }}
+                </div>
+                {{ form_widget(form.nom, {'attr': {'class': 'comment_input'}}) }}
+            </div>
+            </div>
         <div class="col-md-12">
             <div class="form_title">
                 {{ form_label(form.prenom, 'Prenom') }}

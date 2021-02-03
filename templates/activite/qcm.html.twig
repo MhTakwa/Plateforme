@@ -1,0 +1,14 @@
+{%extends 'base.html.twig'%}
+{%block stylesheets%}
+<style>
+.frame{
+    margin-left: 10%;
+    margin-top: 10%;
+    width: 1100px;
+    height: 700px;
+}
+</style>
+{%endblock%}
+{%block body%}
+<iframe class="frame" src="{{asset("uploads/ressources/"~ activite.section.id ~"/"~ activite.document )}}"></iframe>
+{%endblock%}

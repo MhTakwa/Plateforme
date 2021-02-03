@@ -1,0 +1,20 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Ajouter un Groupe{% endblock %}
+{%block stylesheets%}
+<style>
+    .submit{
+        width: 100px;
+        height: 40px;
+        margin-bottom: 20px;
+        margin-left: 80%;
+    }
+</style>
+{%endblock%}
+{% block body %}
+    <h1>Ajouter un Groupe</h1>
+
+    {{ include('groupe/_form.html.twig', {'button_label': 'Ajouter'}) }}
+
+ 
+{% endblock %}

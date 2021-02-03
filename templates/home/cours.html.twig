@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}All courses!{% endblock %}
+{%block stylesheets%}
+<link rel="stylesheet" type="text/css" href="{{asset('styles/courses.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('styles/courses_responsive.css')}}">
+<style>
+	.course_image img {
+    height: 200px;
+    width: 100%;
+    max-width: 100%;
+}
+.course_body{
+    height: 100px;
+}
+</style>
+
+{%endblock%}
+
+
+{% block body %}
+
+	     	<!-- Home -->
+
+             <div class="home">
+                <div class="breadcrumbs_container">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="breadcrumbs">
+                                    <ul>
+                                        <li><a href="{{path('home')}}">Home</a></li>
+                                        <li><a href="{{path('cours')}}">Cours</a></li>
+                                        
+                                     
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>			
+            </div> 
+        
+		<!-- Courses Main Content -->
+        <div class="col-lg-12">
+          
+            <div class="courses_container">
+                <div class="row courses_row">
+                   <!-- Course -->
+                   {%for course in cours%}
+                    <div class="col-lg-3 course_col">
+                        <div class="course">
+                           
+                            <div class="course_body">
+                                <h3 class="course_title"><a href="#">{{course.libelle}}</a></h3>
+                                <div class="course_teacher">{{course.tuteur.Nom ~ " " ~ course.tuteur.Prenom}}</div>
+                                <div class="course_footer">
+                                    <div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
+                                       
+                                        <div class="course_price ml-auto"><a href="{{path('cours_Inscrire',{'id':course.id})}}">Inscrire</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
+           
+            </div>
+        </div>
+
+
+</div>
+
+
+{% endblock %}

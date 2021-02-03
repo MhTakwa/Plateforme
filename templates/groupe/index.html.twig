@@ -1,0 +1,67 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}groupe index{% endblock %}
+{%block stylesheets%}
+<style>
+  
+         
+    .submit{
+                margin-left: 85%;
+                margin-bottom: 20px;
+                margin-top: -15px;
+            }
+    </style>
+{%endblock%}
+{% block body %}
+
+<div class="header">
+    <h2>GROUPES</h2>
+</div>
+    <div class="body">
+        
+        <a href="{{path('groupe_new')}}" class="submit btn btn-primary m-t-15 waves-effect">Nouveau groupe</a>
+        
+    </br>
+    <div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+        <thead>
+            <tr>
+              
+                <th colspan="7">Libelle</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for groupe in groupes %}
+            <tr >
+                
+                <td colspan="7" class="clickable_row" data-href="{{ path('groupe_edit',{'id':groupe.id}) }}">{{ groupe.nom }}</td>
+                <td >
+                    <form method="post" id="form_delete" action="{{ path('groupe_delete', {'id': groupe.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ groupe.id) }}">
+                        <a href="#" id="supprimer">Supprimer</a>
+                    </form>
+                 </td>
+                
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+   </div>
+  
+{% endblock %}
+{%block scripts%}
+<script>
+ $('.clickable_row').on('click',function(){
+    window.location = $(this).data("href");
+ });  
+$('#supprimer').on('click',function(){
+   $('#form_delete').submit();
+});
+</script>
+{%endblock%} 

@@ -34,6 +34,20 @@ height: 150px;
 .courses_button{
 	margin-top: 0%;
 }
+.course_col{
+	height: 600px !important;
+}
+.course_int{
+	background-color: white;
+}
+.course_not_int{
+	background-color: grey;
+}
+.course_body{
+	height: 60px;
+    padding-top: 0% ;
+
+}
 </style>
 {%endblock%}
 
@@ -70,7 +84,8 @@ height: 150px;
 						
 						<div class="section_subtitle"><p></p></div>
 					</div>
-					<div class="avatar"><a href="{{path('user_show',{'id':tuteur.id})}}"><img src="{{asset('images/user.png')}}"></a></div>
+					<div class="avatar"><a href="{{path('tuteur_show',{'id':tuteur.id})}}">
+						<img {%if tuteur.image != null %} src="{{asset('uploads/profile/'~ tuteur.image)}}" {%else%} src="{{asset('images/user.png')}}" {%endif%}></a></div>
 				</div>
 
 			</div>
@@ -84,22 +99,24 @@ height: 150px;
 							<div class="row courses_row">
 								{%for course in courses%}
 								<!-- Course -->
-								<div class="col-lg-4 course_col">
-									<div class="course">
-									
-										<div class="course_body">
-											<h3 class="course_title"><a href="{{path('cours_show',{'id':course.id})}}">{{course.libelle|upper}}</a></h3>
+								<div class="col-lg-3 course_col" >
+									<div {%if course.status==0%} class=" course course_not_int"{%else %} class=" course course_int"{%endif%}>
+									  
+										<div class="course_body" >
+											<h3 class="course_title">
+												<a {%if course.status==1%} href="{{path('cours_show',{'id':course.id})}}"
+												   {%else%} href="{{path('cours_init',{'id':course.id})}}" {%endif%}>{{course.libelle|upper}}</a></h3>
                                         </div>
 									</div>	
                                 </div>			
-												
+								{%endfor%}			
 											
 										
 									</div>
 									<br>	<br>
 								</div>
 							
-								 {%endfor%}
+							
 								
 				
 							</div>

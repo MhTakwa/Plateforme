@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Message index{% endblock %}
+{%block stylesheets%}
+<style>
+    .table{
+        margin-top: 10%;
+    }
+</style>
+{%endblock%}
+{% block body %}
+ 	<!-- Home -->
+
+     <div class="home">
+        <div class="breadcrumbs_container">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="breadcrumbs">
+                            <ul>
+                                <li><a href="{{path('home')}}">Home</a></li>
+                                {%if is_granted('ROLE_TUTEUR')%}
+                                    <li><a href="{{path('dashboard')}}">Espace tuteur</a></li>
+                                {%else%}
+                                    <li><a href="{{path('dashboard_apprenant')}}">Espace apprenant</a></li>
+                                {%endif%}
+                                <li>Messages</li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>			
+    </div> 
+
+    <div class="container">
+        <div class="row">
+          <div class="col-xs-12 ">
+            <div class="table-responsive table" data-pattern="priority-columns">
+              <table class="table table-bordered table-hover">
+               
+             
+                <thead>
+                    <tr>
+                        <th>Sender</th>
+                        <th>Object</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for message in messages %}
+                    <tr>
+                        <td>{{ message.sender.nom ~" "~ message.sender.prenom }}</td>
+                        <td>{{ message.object }}</td>
+                        
+                        <td>
+                            <a href="{{path('message_show',{'id': message.id})}}">show</a>
+                          
+                        </td>
+                    </tr>
+                {% else %}
+                    
+                {% endfor %}
+                </tbody>
+                
+              </table>
+            </div><!--end of .table-responsive-->
+           
+
+            </div>
+          </div>
+        
+         
+        </div>
+      </div>
+
+{% endblock %}

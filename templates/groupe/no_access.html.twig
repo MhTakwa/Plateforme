@@ -1,0 +1,66 @@
+{%extends 'base.html.twig'%}
+{%block stylesheets%}
+<link rel="stylesheet" type="text/css" href="{{asset('styles/about.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('styles/about_responsive.css')}}">
+<style>
+.accordion_container {
+height: 150px;
+}
+.avatar img {
+	margin-left: 100%;
+    width: -49%;
+    width: 100px;
+	margin-top: -18%;
+	cursor: pointer;
+}
+.blog_post_title a {
+	margin-top: -20%;
+	margin-left: 10%;
+    font-family: 'Roboto Slab', serif;
+    font-size: 20px;
+    line-height: 1.4;
+    font-weight: 700;
+    color: #384158;
+    -webkit-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+    -ms-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    transition: all 200ms ease;
+}
+.blog_post_meta{
+	width: 100%;
+	margin-left: 10%;
+}
+.courses_button{
+	margin-top: 0%;
+}
+</style>
+{%endblock%}
+
+{%block body%}
+        	<!-- Home -->
+
+			<div class="home">
+				<div class="breadcrumbs_container">
+					<div class="container">
+						<div class="row">
+							<div class="col">
+								<div class="breadcrumbs">
+									<ul>
+										<li><a href="{{path('home')}}">Home</a></li>
+										<li><a href="{{path('cours_index')}}">Cours</a></li>
+										<li>Accées refusée</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>			
+			</div> 
+		
+
+            <div class="feature">
+             Ce cours n'est pas déstinée à votre groupe !!! 
+            </div>
+
+{%endblock%}

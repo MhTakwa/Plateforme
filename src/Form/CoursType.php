@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Cours;
+use App\Entity\Tuteur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CoursType extends AbstractType
@@ -13,6 +15,8 @@ class CoursType extends AbstractType
     {
         $builder
             ->add('libelle')
+            ->add('tuteur')
+            ->add('groupe')
         ;
     }
 

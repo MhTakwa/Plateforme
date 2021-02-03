@@ -1,11 +1,31 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
-{% block title %}New Cours{% endblock %}
+{% block title %}Ajouter un Groupe{% endblock %}
+{%block stylesheets%}
+<style>
+    .submit{
+        width: 100px;
+        height: 40px;
+        margin-bottom: 20px;
+        margin-left: 80%;
+        margin-top: 20px;
+    }
 
+
+</style>
+{%endblock%}
 {% block body %}
-    <h1>Create new Cours</h1>
+    <h1>Ajouter un Cours</h1>
 
     {{ include('cours/_form.html.twig') }}
 
-    <a href="{{ path('cours_index') }}">back to list</a>
 {% endblock %}
+{%block scripts%}
+<script>
+    $(document).ready(function(){
+        $('.btn-group .bootstrap-select').hide();
+
+    });
+  
+</script>
+{%endblock%}

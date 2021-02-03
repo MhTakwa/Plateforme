@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+{%block stylesheets%}
+<style>
+    .table{
+        margin-top: 3%;
+    }
+    .avatar img{
+        width: 100px;
+        margin: 10%;
+    }
+    .modif{
+        margin-bottom: 100px;
+    }
+</style>
+{%endblock%}
+{% block body %}
+    	<!-- Home -->
+
+        <div class="home">
+            <div class="breadcrumbs_container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="breadcrumbs">
+                                <ul>
+                                    <li><a href="{{path('home')}}">Home</a></li>
+                                    <li><a href="{{path('dashboard')}}">Espace tuteur</a></li>
+                                    <li>Profil</li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>			
+        </div> 
+    
+    <div class=row>
+        <div class="avatar col-md-2"><a href=""><img {%if(tuteur.image !=null)%} src="{{asset('uploads/profile/'~ tuteur.image)}}" {%else%} src="{{asset('images/user.png')}}" {%endif%}></a></div>
+        <div class="col-md-10">
+            <table class="table">
+                <tbody>
+        
+                
+                    <tr>
+                        <th>Nom & prénom</th>
+                        <td>{{ tuteur.nom ~" " ~ tuteur.prenom }}</td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Télephone</th>
+                        <td>{{ tuteur.tel }}</td>
+                    </tr>
+                     <tr>
+                        <th>Spécialite</th>
+                        <td>{{ tuteur.specialite }}</td>
+                    </tr>
+                     <tr>
+                        <th>Grade</th>
+                        <td>{{ tuteur.grade }}</td>
+                    </tr>
+                     <tr>
+                        <th>Email</th>
+                        <td>{{ tuteur.email }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        
+        </div>
+        <div class="courses_button trans_200 modif"><a href="{{path('tuteur_edit',{'id':tuteur.id})}}">Modifier mes informations</a></div>
+    </div>
+    
+   
+{% endblock %}

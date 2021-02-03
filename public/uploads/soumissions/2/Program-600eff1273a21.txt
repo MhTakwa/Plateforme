@@ -1,0 +1,118 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp1
+{
+
+    public interface Subject
+    {
+        void RegisterObserver(Follower observer);
+        void UnregisterObserver(Follower observer);
+        void NotifyObservers();
+
+
+
+    }
+
+
+
+    public class Channel : Subject
+    {
+        private string channelName;
+        private string _status;
+        private ArrayList observers = new ArrayList();
+
+
+        public Channel(string _channelName)
+        {
+            this.channelName = _channelName;
+        }
+
+        public void NotifyObservers()
+        {
+            foreach (Follower f in observers)
+            {
+                Console.WriteLine(f.FollowerName);
+                f.Update(_status);
+            }
+        }
+
+        public void RegisterObserver(Follower observer)
+        {
+            observers.Add(observer);
+            Console.WriteLine("new follower " + observer.FollowerName);
+
+        }
+
+        public void UnregisterObserver(Follower observer)
+        {
+            observers.Remove(observer);
+            Console.WriteLine( observer.FollowerName +"unregister");
+        }
+        public void setStatus(string status)
+        {
+            this._status = status;
+        }
+
+    }
+
+
+    public interface Observer
+    {
+        void Update(String status);
+    }
+
+    public class Follower : Observer
+    {
+        public string FollowerName { get; set; }
+    
+
+        public Follower(string followerName)
+        {
+            this.FollowerName = followerName;
+        }
+
+       
+        public void play()
+        {   
+            Console.WriteLine(FollowerName +" play");
+        }
+
+        public void Update(string status)
+        {
+            Console.WriteLine(status);
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Channel coding = new Channel("Coding");
+            ///f1
+            Follower follower = new Follower("follower 1");
+            coding.RegisterObserver(follower);
+            
+            ///f2
+            Follower follower2 = new Follower("follower 2");
+            coding.RegisterObserver(follower2);
+           
+            ////update cahnnel status
+            coding.setStatus("Direct now");
+            coding.NotifyObservers();
+            ////
+            follower.play();
+            follower2.play();
+            coding.UnregisterObserver(follower2);
+           
+            Console.ReadLine();
+           
+
+
+
+        }
+    }
+}
