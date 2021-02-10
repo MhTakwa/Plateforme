@@ -146,7 +146,7 @@ class ActiviteController extends AbstractController
        // die(var_dump($newFilename));
         // Move the file to the directory where brochures are stored
         try {
-            $file->move($this->getParameter('ressources_directory').'/'. $activite->getSection()->getId() ,$newFilename);
+            $file->move($this->getParameter('ressources_directory').'/'.$activite->getSection()->getLibelle().'/'. $activite->getSection()->getId(),$newFilename);
         } catch (FileException $e) {
             // ... handle exception if something happens during file upload
         }

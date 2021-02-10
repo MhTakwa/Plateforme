@@ -116,7 +116,7 @@ img{
                                                                     <div class="dropdown_item_title">
                                                                         <table border="0">
                                                                             <tr>
-                                                                                {%if ressource.className=="ressource"%}           
+                                                                                {%if ressource.className=="Ressource"%}           
                                                                                 <td style="width: 900px;">
                                                                                     <a href="{{path('ressource_show', {'id': ressource.id})}}">{{ressource.Nom}}</a> 
                                                                                 </td>
@@ -129,14 +129,13 @@ img{
                                                                                     <td>
                                                                                         {{ include('ressource/_delete_form.html.twig') }}
                                                                                     </td>
-                                                                                 {%endif%}
+                                                                                {%endif%}
+                                                                               
                                                                                 {%else%}
                                                                                 <td style="width: 900px;">
-                                                                                    {%if ressource.type=="QCM"%}
-                                                                                    <a href="{{path('qcm', {'id': ressource.id})}}">{{ressource.Nom}}</a> 
-                                                                                    {%else%}
+                                                                                 
                                                                                     <a href="{{path('activite_show', {'id': ressource.id})}}">{{ressource.Nom}}</a> 
-                                                                                    {%endif%}
+                                                                                
                                                                                 </td>
                                                                                 {%if is_granted("ROLE_TUTEUR")%}
                                                                                     <td>
@@ -147,8 +146,10 @@ img{
                                                                                     <td>
                                                                                         {{ include('activite/_delete_form.html.twig') }}
                                                                                     </td>
-                                                                                    {%endif%}
-                                                                                    {%endif%}
+                                                                                {%endif%}
+                                                                                {%endif%}
+                                                                                   
+                                                                                    
                                                                           
                                                                             </tr>
                                                                             
@@ -167,7 +168,7 @@ img{
                                                                 <div class="courses_button trans_200 col-md-3"><a  id="add" href="{{path('ressource_new',{'section':section.id})}}">Ajouter une ressource</a></div>
                                                                 <div class="courses_button trans_200 col-md-3"><a  id="add" href="{{path('activite_new',{'section':section.id})}}">Ajouter une activite</a></div>
                                                                 {%endif%}
-
+                                                                
                                                               
                                                                
                                                               
